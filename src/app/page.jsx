@@ -1,5 +1,5 @@
 export default function Home() {
-  throw new Error('This is an error');
+  // throw new Error('This is an error');
 
   return (
     <div>
