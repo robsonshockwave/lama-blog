@@ -31,7 +31,7 @@ export const getPosts = async () => {
 export const getPost = async (slug) => {
   try {
     connectToDb();
-    const post = await Post.find({ slug: slug });
+    const post = await Post.findOne({ slug: slug });
 
     return post;
   } catch (error) {
@@ -55,7 +55,7 @@ export const getUser = async (id) => {
 export const getUsers = async () => {
   try {
     connectToDb();
-    const users = await User.find();
+    const users = await User.findOne();
 
     return users;
   } catch (error) {
