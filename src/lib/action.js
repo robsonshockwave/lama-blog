@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { Post } from './models';
 import { connectToDb } from './utils';
+import { signIn, signOut } from './auth';
 
 export const addPost = async (formData) => {
   // 'use server';
@@ -54,4 +55,12 @@ export const deletePost = async (formData) => {
     console.log(error);
     return { error: 'Something went wrong!' };
   }
+};
+
+export const handleGithubLogin = async (e) => {
+  await signIn('github');
+};
+
+export const handleLogout = async (e) => {
+  await signOut();
 };
