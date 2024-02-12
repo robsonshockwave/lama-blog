@@ -13,6 +13,17 @@ import { getPost } from '@/lib/data';
 //   return res.json();
 // };
 
+// FETCH DATA WITH AN API - api routes
+const getData = async (slug) => {
+  const res = await fetch(`http://localhost:3000/api/blog/${slug}`, {
+    method: 'GET',
+  });
+
+  if (!res.ok) throw new Error('Something went wrong');
+
+  return res.json();
+};
+
 export const generateMetadata = async ({ params }) => {
   const { slug } = params;
   const post = await getPost(slug);
@@ -30,8 +41,11 @@ const SinglePostPage = async ({ params }) => {
 
   //   console.log(params, post);
 
-  // FETCH DATA WITHOUT AN API
-  const post = await getPost(slug);
+  // FETCH DATA WITHOUT AN API - server actions
+  // const post = await getPost(slug);
+
+  // FETCH DATA WITHOUT AN API - api routes
+  const post = await getData(slug);
 
   return (
     <div className={styles.container}>
