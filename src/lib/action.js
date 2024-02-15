@@ -66,7 +66,7 @@ export const handleLogout = async (e) => {
   await signOut();
 };
 
-export const register = async (formData) => {
+export const register = async (previousState, formData) => {
   const { username, email, password, passwordRepeat, img } =
     Object.fromEntries(formData);
 
@@ -95,19 +95,28 @@ export const register = async (formData) => {
 
     await newUser.save();
     console.log('User created successfully!');
+
+    return { success: true };
   } catch (error) {
     console.log(error);
     return { error: 'Something went wrong!' };
   }
 };
 
-export const login = async (formData) => {
+export const login = async (previousState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 
   try {
     await signIn('credentials', { username, password });
+
+    return { success: true };
   } catch (error) {
     console.log(error);
-    return { error: 'Something went wrong!' };
+
+    if (error.message.includes('CredentialsSignin')) {
+      return { error: 'Invalid username or password!' };
+    }
+
+    throw error;
   }
 };
